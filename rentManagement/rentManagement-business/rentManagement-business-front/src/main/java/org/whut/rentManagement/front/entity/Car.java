@@ -1,27 +1,17 @@
-package org.whut.rentManagement.business.front.entity;
+package org.whut.rentManagement.front.entity;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Aaron
  * Date: 14-12-30
- * Time: 下午3:43
+ * Time: 下午8:38
  * To change this template use File | Settings | File Templates.
  */
-public class Device {
+public class Car {
     private long id;
     private String name;
-    private String address;
     private String description;
-    private long price;
-    private Long appId;
-
-    public Long getAppId() {
-        return appId;
-    }
-
-    public void setAppId(Long appId) {
-        this.appId = appId;
-    }
+    private String price;
 
     public long getId() {
         return id;
@@ -39,14 +29,6 @@ public class Device {
         this.name = name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -55,11 +37,11 @@ public class Device {
         this.description = description;
     }
 
-    public long getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(long price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 }
