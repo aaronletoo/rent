@@ -197,6 +197,9 @@
             "contractList":"rs/contract/getContractList",
             "inStockList":"rs/stock_in_sheet/getInStockList",
             "outStockList":"rs/stock_out_sheet/getOutStockList"
+        },
+        "car":{
+            "list":"rs/car/list"
         }
     }
 })(jQuery);
