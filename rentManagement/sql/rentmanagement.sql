@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50525
 File Encoding         : 65001
 
-Date: 2014-12-30 11:06:58
+Date: 2015-01-04 13:19:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -43,13 +43,14 @@ CREATE TABLE `authority` (
   `description` varchar(255) DEFAULT NULL,
   `status` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of authority
 -- ----------------------------
 INSERT INTO `authority` VALUES ('1', 'ROLE_USER', '用户', '1');
 INSERT INTO `authority` VALUES ('2', 'ROLE_ADMIN', '管理员', '1');
+INSERT INTO `authority` VALUES ('3', 'ROLE_ANONYMOUS', '匿名', '1');
 
 -- ----------------------------
 -- Table structure for authority_power
@@ -62,7 +63,7 @@ CREATE TABLE `authority_power` (
   `powerResource` varchar(255) DEFAULT NULL,
   `authorityName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of authority_power
@@ -74,6 +75,7 @@ INSERT INTO `authority_power` VALUES ('5', '2', '2', '/user.html', 'ROLE_ADMIN')
 INSERT INTO `authority_power` VALUES ('6', '2', '3', '/admin.html', 'ROLE_ADMIN');
 INSERT INTO `authority_power` VALUES ('7', '2', '4', '/index.jsp', 'ROLE_ADMIN');
 INSERT INTO `authority_power` VALUES ('8', '2', '15', 'cas/**', 'ROLE_ADMIN');
+INSERT INTO `authority_power` VALUES ('9', '3', '16', '/rs/car/**', 'ROLE_ANONYMOUS');
 
 -- ----------------------------
 -- Table structure for bad_debt_device
@@ -108,12 +110,15 @@ CREATE TABLE `bad_debt_sheet` (
   `creator` varchar(255) DEFAULT NULL,
   `appId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of bad_debt_sheet
 -- ----------------------------
 INSERT INTO `bad_debt_sheet` VALUES ('1', '123123', 'x1234', '1', '1', '肖竹军', '1', '没有描述', '2014-11-06', '肖竹军', '1');
+INSERT INTO `bad_debt_sheet` VALUES ('2', '', '', '0', '0', '', '0', '', '2015-01-04', '', '1');
+INSERT INTO `bad_debt_sheet` VALUES ('3', '', '', '0', '0', '', '0', '', '2015-01-04', '', '1');
+INSERT INTO `bad_debt_sheet` VALUES ('4', '1', 'x1234', '1', '0', '2', '2', '2', '2015-01-04', '2', '1');
 
 -- ----------------------------
 -- Table structure for batch
@@ -133,8 +138,8 @@ CREATE TABLE `batch` (
 -- Records of batch
 -- ----------------------------
 INSERT INTO `batch` VALUES ('1', 'sdfsd', '123123123', null, '2014-11-23 11:04:38', '1');
-INSERT INTO `batch` VALUES ('2', 'pc20141125-01', '20141125从中联重科采购10台标准塔吊', '2014-11-01 00:00:00', '2014-11-25 10:06:58', '1');
-INSERT INTO `batch` VALUES ('3', 'bzj20141129', '20141129采购标准节', '2014-11-29 00:00:00', '2014-11-29 21:47:11', '1');
+INSERT INTO `batch` VALUES ('2', 'pc20141125-01', '20141125采购10辆自行车', '2014-11-01 00:00:00', '2014-11-25 10:06:58', '1');
+INSERT INTO `batch` VALUES ('3', 'bzj20141129', '20141129采购卡车', '2014-11-29 00:00:00', '2014-11-29 21:47:11', '1');
 
 -- ----------------------------
 -- Table structure for car_driver
@@ -185,12 +190,12 @@ CREATE TABLE `contract` (
   `removeTime` date DEFAULT NULL,
   `appId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of contract
 -- ----------------------------
-INSERT INTO `contract` VALUES ('1', '1', '合同1', '2222', '', '2014-11-04', '2014-11-14', '2014-11-30', '武汉市', '肖竹军', null, null, null, null, '0', '0', null, null, null, null, null, null, null, '1');
+INSERT INTO `contract` VALUES ('2', '1', '租车合同1', '1', null, '2015-01-01', '2015-01-03', '2014-12-30', '武汉', '运如家', null, null, null, null, null, null, null, null, null, null, null, null, null, '1');
 
 -- ----------------------------
 -- Table structure for customer
@@ -215,7 +220,7 @@ CREATE TABLE `customer` (
 -- ----------------------------
 -- Records of customer
 -- ----------------------------
-INSERT INTO `customer` VALUES ('1', '中建一局', 'xxx', '武汉市洪山区', '李总', '543234234', 'sdfsdf@163.com', '234234234', 'xxx', '12332423423', '2014-10-29', '1');
+INSERT INTO `customer` VALUES ('1', '喻念', 'xxx', '武汉市洪山区', '李总', '543234234', 'sdfsdf@163.com', '234234234', 'xxx', '12332423423', '2014-10-29', '1');
 
 -- ----------------------------
 -- Table structure for department
@@ -263,24 +268,16 @@ CREATE TABLE `device` (
   `havePrint` int(11) DEFAULT NULL,
   `appId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of device
 -- ----------------------------
-INSERT INTO `device` VALUES ('1', '1', '1', '1', '1', '1', null, '1', '4', '湖北', '使用', null, '塔吊001', 'sjs001', null, '2013-11-01', '2014-11-09', null, '114.380494', '30.507115', '0', '1');
-INSERT INTO `device` VALUES ('2', '0', '1', '1', '1', '1', null, '1', '2', null, '使用', null, '塔吊002', 'sjs002', null, '2013-11-14', '2014-11-09', null, '114.380494', '30.506115', '0', '1');
-INSERT INTO `device` VALUES ('8', null, '1', '1', '1', '1', null, '1', '2', null, '维修', null, '塔吊0003', 'td0003', '500000', '2014-11-01', '2014-11-25', '元', '114.380494', '30.505115', '0', '1');
-INSERT INTO `device` VALUES ('9', '1', '3', '2', '2', '1', null, '1', '4', null, '维修', null, '标准节0001', 'bzj0001', '20000', '2014-11-29', '2014-11-29', '元', null, null, '0', '1');
-INSERT INTO `device` VALUES ('10', '1', '3', '2', '2', '1', null, '1', '4', null, null, null, '标准节0002', 'bzj0002', '20000', '2014-11-29', '2014-11-29', '元', null, null, '0', '1');
-INSERT INTO `device` VALUES ('11', '1', '3', '2', '2', '1', null, '1', '4', null, null, null, '标准节0003', 'bzj0003', '20000', '2014-11-29', '2014-11-29', '元', null, null, '0', '1');
-INSERT INTO `device` VALUES ('12', '1', '3', '2', '2', '1', null, '1', '4', null, null, null, '标准节0004', 'bzj0004', '20000', '2014-11-29', '2014-11-29', '元', null, null, '0', '1');
-INSERT INTO `device` VALUES ('13', '1', '3', '2', '2', '1', null, '1', '4', null, null, null, '标准节0005', 'bzj0005', '20000', '2014-11-29', '2014-11-29', '元', null, null, '0', '1');
-INSERT INTO `device` VALUES ('14', '0', '3', '2', '2', '1', null, '1', '2', null, null, null, '标准节0006', 'bzj0006', '20000', '2014-11-29', '2014-11-29', '元', null, null, '0', '1');
-INSERT INTO `device` VALUES ('15', '0', '3', '2', '2', '1', null, '1', '2', null, null, null, '标准节0007', 'bzj0007', '20000', '2014-11-29', '2014-11-29', '元', null, null, '0', '1');
-INSERT INTO `device` VALUES ('16', '0', '3', '2', '2', '1', null, '1', '2', null, null, null, '标准节0008', 'bzj0008', '20000', '2014-11-29', '2014-11-29', '元', null, null, '0', '1');
-INSERT INTO `device` VALUES ('17', '0', '3', '2', '2', '1', null, '1', '2', null, null, null, '标准节0009', 'bzj0009', '20000', '2014-11-29', '2014-11-29', '元', null, null, '0', '1');
-INSERT INTO `device` VALUES ('18', '0', '3', '2', '2', '1', null, '1', '2', null, null, null, '标准节0010', 'bzj0010', '20000', '2014-11-29', '2014-11-29', '元', null, null, '0', '1');
+INSERT INTO `device` VALUES ('1', '1', '1', '1', '1', '1', null, '1', '4', '本校', '使用', '能变速能爬坡能载妹子~ 成色很好的,韵苑看车~ 新车什么价可以去车行问问 我这个真的很亏了,大刀留情', '9新山地车', 'sjs001', '200', '2013-11-01', '2014-11-09', null, '114.380494', '30.507115', '0', '1');
+INSERT INTO `device` VALUES ('2', '0', '1', '1', '1', '1', null, '1', '2', '本校 - 西边', '使用', '全套喜马诺变速器,21速,指拨变速,用了1年,600买的,300出掉,有点锈是肯定的...好骑就行嘛', '前减震碟刹山地车', 'sjs002', '170', '2013-11-14', '2014-11-09', null, '114.380494', '30.506115', '0', '1');
+INSERT INTO `device` VALUES ('3', null, '1', '1', '1', '1', null, '1', '2', '本校 - 喻园小区门口', '维修', '二手自行车一辆，刹车等各方面性能完好。送照片中的锁一把。', '二手自行车', 'td0003', '100', '2014-11-01', '2014-11-25', '元', '114.380494', '30.505115', '0', '1');
+INSERT INTO `device` VALUES ('4', null, '2', '2', '1', '1', null, null, '1', '本校 - 全校', null, '八成新的普通自行车，对自行车没什么要求的可以联系我，车子挺好骑的，座子和后座都是近期换的新的，只是部分地方有点生锈，价格可商量。', '自行车', '22222', '150', '2015-01-24', '2015-01-03', '4444', null, null, null, '1');
+INSERT INTO `device` VALUES ('5', null, '1', '3', '1', '1', null, '2', '1', '本校 - 全校区', '', '本人爱好骑行，有骑行的朋友可以联系我，改装，升级，调试车，保养交流经验，换车，都可以。', '长期出售捷安特美利达', '', '300', '2015-01-06', '2015-01-04', null, null, null, '0', '1');
 
 -- ----------------------------
 -- Table structure for device_type
@@ -301,8 +298,8 @@ CREATE TABLE `device_type` (
 -- ----------------------------
 -- Records of device_type
 -- ----------------------------
-INSERT INTO `device_type` VALUES ('1', '司机室', '司机室', '2014-11-06', '台', '1', '5', '1');
-INSERT INTO `device_type` VALUES ('2', '标准节', '标准节', '2014-11-29', '个', '0', '5', '1');
+INSERT INTO `device_type` VALUES ('1', '自行车', '自行车', '2014-11-06', '台', '1', '5', '1');
+INSERT INTO `device_type` VALUES ('2', '大卡车', '大卡车', '2014-11-29', '个', '0', '5', '1');
 
 -- ----------------------------
 -- Table structure for employee
@@ -403,7 +400,7 @@ CREATE TABLE `power` (
   `type` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of power
@@ -413,6 +410,7 @@ INSERT INTO `power` VALUES ('2', '/user.html', 'url', null);
 INSERT INTO `power` VALUES ('3', '/admin.html', 'url', null);
 INSERT INTO `power` VALUES ('4', '/index.jsp', 'url', null);
 INSERT INTO `power` VALUES ('15', 'cas/**', 'service', 'cas client test from android');
+INSERT INTO `power` VALUES ('16', '/rs/car/**', '匿名', '匿名');
 
 -- ----------------------------
 -- Table structure for prebury
@@ -544,15 +542,16 @@ CREATE TABLE `stock_in` (
   `image` varchar(255) DEFAULT NULL,
   `appId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_in
 -- ----------------------------
-INSERT INTO `stock_in` VALUES ('1', '123123', '1', null, 'x12345', null, '肖竹军', '1', '没有描述', '2014-11-09', null, '1');
-INSERT INTO `stock_in` VALUES ('2', 'sdfd', '1', 'sdfsdf', 'sdfsd', '0', 'xiaozhujun', '1', 'sdfsdf', '2014-11-18', '/rentManagementResource/rentImage/1/stockIn/2_towerCrane.jpg', '1');
-INSERT INTO `stock_in` VALUES ('3', 'rk019809', '1', '肖竹军', '鄂A908B1', '0', 'xiaozhujun', '1', '设备有损耗', '2014-11-18', '/rentManagementResource/rentImage/1/stockIn/3_towerCrane.jpg', '1');
-INSERT INTO `stock_in` VALUES ('4', 'rk20141129001', '1', '肖竹军', '', '0', 'xiaozhujun', '1', '无', '2014-11-29', '/rentManagementResource/rentImage/1/stockIn/4_towerCrane.jpg', '1');
+INSERT INTO `stock_in` VALUES ('1', '123123', '1', null, 'x12345', null, '肖竹军', '1', '没有描述', '2015-01-04', null, '1');
+INSERT INTO `stock_in` VALUES ('2', 'sdfd', '1', 'sdfsdf', 'sdfsd', '0', 'xiaozhujun', '1', 'sdfsdf', '2015-01-04', '/rentManagementResource/rentImage/1/stockIn/2_towerCrane.jpg', '1');
+INSERT INTO `stock_in` VALUES ('3', 'rk019809', '1', '肖竹军', '鄂A908B1', '0', 'xiaozhujun', '1', '设备有损耗', '2015-01-04', '/rentManagementResource/rentImage/1/stockIn/3_towerCrane.jpg', '1');
+INSERT INTO `stock_in` VALUES ('4', 'rk20141129001', '1', '肖竹军', '', '0', 'xiaozhujun', '1', '无', '2015-01-04', '/rentManagementResource/rentImage/1/stockIn/4_towerCrane.jpg', '1');
+INSERT INTO `stock_in` VALUES ('5', '2222', '2', '胡匪', 'A8888', '0', 'xiaozhujun', '1', '', '2015-01-04', null, '1');
 
 -- ----------------------------
 -- Table structure for stock_in_device
@@ -622,7 +621,7 @@ CREATE TABLE `stock_out` (
   `image` varchar(255) DEFAULT NULL,
   `appId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_out
@@ -631,6 +630,7 @@ INSERT INTO `stock_out` VALUES ('1', '123123', '1', null, 'x1234', '肖竹军', 
 INSERT INTO `stock_out` VALUES ('2', 'asd', '1', 'asd', 'adsas', 'xiaozhujun', '0', '1', 'sdfsdf', '2014-11-18', '/rentManagementResource/rentImage/1/stockOut/2_towerCrane.jpg', '1');
 INSERT INTO `stock_out` VALUES ('3', 'ck08834', '1', '肖竹军', '鄂A983B1', 'xiaozhujun', '0', '1', '设备完好', '2014-11-18', '/rentManagementResource/rentImage/1/stockOut/3_towerCrane.jpg', '1');
 INSERT INTO `stock_out` VALUES ('5', 'ck20141130001', '1', '肖竹军', '', 'xiaozhujun', '0', '1', '无', '2014-11-30', '/rentManagementResource/rentImage/1/stockOut/5_towerCrane.jpg', '1');
+INSERT INTO `stock_out` VALUES ('6', '111', '2', '胡匪', 'A8888', 'xiaozhujun', '0', '1', '', '2015-01-04', '/rentManagementResource/rentImage/1/stockOut/6_flower.jpg', '1');
 
 -- ----------------------------
 -- Table structure for stock_out_device
@@ -641,7 +641,7 @@ CREATE TABLE `stock_out_device` (
   `stockOutId` bigint(20) DEFAULT NULL,
   `deviceId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of stock_out_device
@@ -657,6 +657,8 @@ INSERT INTO `stock_out_device` VALUES ('8', '5', '15');
 INSERT INTO `stock_out_device` VALUES ('9', '5', '16');
 INSERT INTO `stock_out_device` VALUES ('10', '5', '17');
 INSERT INTO `stock_out_device` VALUES ('11', '5', '18');
+INSERT INTO `stock_out_device` VALUES ('12', '6', '1');
+INSERT INTO `stock_out_device` VALUES ('13', '6', '2');
 
 -- ----------------------------
 -- Table structure for stock_out_sheet
@@ -736,13 +738,14 @@ CREATE TABLE `supplier` (
   `createTime` date DEFAULT NULL,
   `appId` bigint(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of supplier
 -- ----------------------------
 INSERT INTO `supplier` VALUES ('1', '三一重工', '三一重工', 'xxx地址', '张三', '1234123123', 'sdfsdf@163.com', '888888', '2014-10-29', '1');
 INSERT INTO `supplier` VALUES ('2', '中联重科', '中联重科', 'sss地址', '李四', '54545345', 'sdfsdf@163.com', '65645451', '2014-10-29', '1');
+INSERT INTO `supplier` VALUES ('3', '捷安特', '', '湖北省武汉市', '', '55555555555', '', '', '2015-01-04', '1');
 
 -- ----------------------------
 -- Table structure for transport
@@ -766,14 +769,14 @@ CREATE TABLE `transport` (
 -- ----------------------------
 -- Records of transport
 -- ----------------------------
-INSERT INTO `transport` VALUES ('1', 'xiaozhujun', '肖竹军', '18511451744', '武汉市武昌区', '武汉市青山区', null, null, null, '2014-11-10 00:42:30', '1');
-INSERT INTO `transport` VALUES ('2', 'xiaozhujun', '张三', '13511459876', '武汉市武昌区', '武汉市汉阳区', null, null, '/rentManagementResource/rentImage/1/transport/2_towerCrane.jpg', '2014-11-10 01:11:22', '1');
-INSERT INTO `transport` VALUES ('5', 'xiaozhujun', '张三', '18387630976', '武汉市黄陂区', '武汉市江夏区', null, null, null, '2014-11-11 01:45:30', '1');
-INSERT INTO `transport` VALUES ('6', 'xiaozhujun', '李四', '187643234', '武汉市新洲区', '武汉市洪山区', null, null, null, '2014-11-11 01:48:37', '1');
-INSERT INTO `transport` VALUES ('47', 'xiaozhujun', '王五', '234234234', '武汉市黄陂区', '武汉市蔡甸区', null, null, '/rentManagementResource/rentImage/1/transport/47_towerCrane.jpg', '2014-11-12 00:55:44', '1');
-INSERT INTO `transport` VALUES ('48', 'xiaozhujun', 'sdf', '123123', 'weq', 'qweqwe', null, null, '/rentManagementResource/rentImage/1/transport/48_towerCrane.jpg', '2014-11-12 23:35:19', '1');
-INSERT INTO `transport` VALUES ('49', 'xiaozhujun', 'sdf', 'sdf', 'sdfsdf', 'sdf', null, null, '/rentManagementResource/rentImage/1/transport/49_towerCrane.jpg', '2014-11-13 03:38:02', '1');
-INSERT INTO `transport` VALUES ('50', 'xiaozhujun', '运输人员', '1987342342', '武汉市武昌区', '武汉市黄陂区', null, null, '/rentManagementResource/rentImage/1/transport/50_towerCrane.jpg', '2014-11-13 04:07:21', '1');
+INSERT INTO `transport` VALUES ('1', 'xiaozhujun', '肖竹军', '18511451744', '武汉市武昌区', '武汉市青山区', null, null, null, '2015-01-04 00:42:30', '1');
+INSERT INTO `transport` VALUES ('2', 'xiaozhujun', '张三', '13511459876', '武汉市武昌区', '武汉市汉阳区', null, null, '/rentManagementResource/rentImage/1/transport/2_towerCrane.jpg', '2015-01-04 01:11:22', '1');
+INSERT INTO `transport` VALUES ('5', 'xiaozhujun', '张三', '18387630976', '武汉市黄陂区', '武汉市江夏区', null, null, null, '2015-01-04 01:45:30', '1');
+INSERT INTO `transport` VALUES ('6', 'xiaozhujun', '李四', '187643234', '武汉市新洲区', '武汉市洪山区', null, null, null, '2015-01-04 01:48:37', '1');
+INSERT INTO `transport` VALUES ('47', 'xiaozhujun', '王五', '234234234', '武汉市黄陂区', '武汉市蔡甸区', null, null, '/rentManagementResource/rentImage/1/transport/47_towerCrane.jpg', '2015-01-04 00:55:44', '1');
+INSERT INTO `transport` VALUES ('48', 'xiaozhujun', 'sdf', '123123', 'weq', 'qweqwe', null, null, '/rentManagementResource/rentImage/1/transport/48_towerCrane.jpg', '2015-01-04 23:35:19', '1');
+INSERT INTO `transport` VALUES ('49', 'xiaozhujun', 'sdf', 'sdf', 'sdfsdf', 'sdf', null, null, '/rentManagementResource/rentImage/1/transport/49_towerCrane.jpg', '2015-01-04 03:38:02', '1');
+INSERT INTO `transport` VALUES ('50', 'xiaozhujun', '运输人员', '1987342342', '武汉市武昌区', '武汉市黄陂区', null, null, '/rentManagementResource/rentImage/1/transport/50_towerCrane.jpg', '2015-01-04 04:07:21', '1');
 INSERT INTO `transport` VALUES ('51', 'xiaozhujun', '肖竹军', '18511451798', '武汉市武昌区', '武汉市青山区', null, null, '/rentManagementResource/rentImage/1/transport/51_towerCrane.jpg', '2014-11-29 23:55:59', '1');
 INSERT INTO `transport` VALUES ('52', 'xiaozhujun', '2213', '123234', '2342', '2342', null, null, '/rentManagementResource/rentImage/1/transport/52_flower.jpg', '2014-12-28 21:41:39', '1');
 INSERT INTO `transport` VALUES ('53', 'xiaozhujun', '2213', '123234', '2342', '2342', null, null, null, '2014-12-28 21:42:08', '1');
@@ -834,15 +837,16 @@ CREATE TABLE `user` (
   `status` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'xiaozhujun', 'e10adc3949ba59abbe56e057f20f883e', '男', 'ROLE_USER;ROLE_ADMIN', '1', '启用', null);
+INSERT INTO `user` VALUES ('1', 'xiaozhujun', 'e10adc3949ba59abbe56e057f20f883e', '男', 'ROLE_USER;ROLE_ADMIN;ROLE_ANONYMOUS', '1', '启用', null);
 INSERT INTO `user` VALUES ('2', 'zhangsan', 'e10adc3949ba59abbe56e057f20f883e', '男', 'ROLE_USER', '1', '启用', null);
 INSERT INTO `user` VALUES ('3', 'sunhui', 'e68fa2bc61b75b8a06766e25905052c7', '男', 'ROLE_USER', '1', '启用', null);
 INSERT INTO `user` VALUES ('4', 'liujinxia', 'c99c1cbefe13019978d90cb442cb8f78', '女', 'ROLE_ADMIN', '1', '启用', null);
+INSERT INTO `user` VALUES ('5', 'ROLE_ANONYMOUS', null, null, 'ROLE_ANONYMOUS', '1', '启用', null);
 
 -- ----------------------------
 -- Table structure for user_authority
@@ -855,7 +859,7 @@ CREATE TABLE `user_authority` (
   `userName` varchar(255) DEFAULT NULL,
   `authorityName` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user_authority
@@ -865,3 +869,4 @@ INSERT INTO `user_authority` VALUES ('2', '1', '2', 'xiaozhujun', 'ROLE_ADMIN');
 INSERT INTO `user_authority` VALUES ('5', '2', '1', 'zhangsan', 'ROLE_USER');
 INSERT INTO `user_authority` VALUES ('6', '3', '1', 'sunhui', 'ROLE_USER');
 INSERT INTO `user_authority` VALUES ('7', '4', '2', 'liujinxia', 'ROLE_ADMIN');
+INSERT INTO `user_authority` VALUES ('9', '1', '1', 'xiaozhujun', 'ROLE_ANONYMOUS');

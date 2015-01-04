@@ -35,7 +35,7 @@
             var device=$("#outStockDeviceName").val();
             var sTime=$("#outStockStartTime").val();
             var eTime=$("#outStockEndTime").val();
-            $.post($.URL.stockOut.findByCondition,{"user":user,"device":device,"sTime":sTime,"eTime":eTime},getOutStockListCallback,"json");
+            $.post($.URL.stockOut.list,null,getOutStockListCallback,"json");
         }
 
         $("#getOutStockListBtn").click(function(){

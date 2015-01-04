@@ -199,7 +199,8 @@
             "outStockList":"rs/stock_out_sheet/getOutStockList"
         },
         "car":{
-            "list":"rs/car/list"
+            "list":"rs/car/list",
+            "findByCondition":"rs/car/findByCondition"
         }
     }
 })(jQuery);

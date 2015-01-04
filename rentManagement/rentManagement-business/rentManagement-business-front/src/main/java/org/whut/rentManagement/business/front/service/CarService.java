@@ -31,5 +31,7 @@ public class CarService {
     public List<Map<String,String>> getListByAppId(long appId) {
         return carMapper.getListByAppId(appId);
     }
-
+    public List<Map<String,Object>> findByCondition(String name){
+        return carMapper.findByCondition(name);
+    }
 }

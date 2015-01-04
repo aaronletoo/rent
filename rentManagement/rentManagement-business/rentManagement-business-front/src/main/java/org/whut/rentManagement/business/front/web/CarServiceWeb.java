@@ -6,10 +6,12 @@ import org.whut.platform.business.user.security.UserContext;
 import org.whut.platform.fundamental.util.json.JsonResultUtils;
 import org.whut.rentManagement.business.front.service.CarService;
 
+import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,5 +34,14 @@ public class CarServiceWeb {
         long appId= 1;
         List<Map<String,String>> list=carService.getListByAppId(appId);
         return JsonResultUtils.getObjectResultByStringAsDefault(list, JsonResultUtils.Code.SUCCESS);
+    }
+    @Produces(MediaType.APPLICATION_JSON+";charset=UTF-8")
+    @Path("/findByCondition")
+    @POST
+    public String findByCondition(@FormParam("name")String name){
+        long appId= 1;
+        name="%"+name+"%";
+        List<Map<String,Object>> list=carService.findByCondition(name);
+        return JsonResultUtils.getObjectResultByStringAsDefault(list,JsonResultUtils.Code.SUCCESS);
     }
 }

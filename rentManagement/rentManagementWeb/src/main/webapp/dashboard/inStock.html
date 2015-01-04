@@ -35,7 +35,7 @@ function getInStockList(){
     var device=$("#inStockDeviceName").val();
     var sTime=$("#inStockStartTime").val();
     var eTime=$("#inStockEndTime").val();
-    $.post($.URL.stockIn.findByCondition,{"user":user,"device":device,"sTime":sTime,"eTime":eTime},getInStockListCallback,"json");
+    $.post($.URL.stockIn.list,null,getInStockListCallback,"json");
 }
 
 $("#getInStockListBtn").click(function(){

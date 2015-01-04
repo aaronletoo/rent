@@ -1,5 +1,6 @@
 package org.whut.rentManagement.business.front.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.whut.platform.fundamental.orm.mapper.AbstractMapper;
 import org.whut.rentManagement.business.front.entity.Car;
 
@@ -15,4 +16,5 @@ import java.util.Map;
  */
 public interface CarMapper extends AbstractMapper<Car> {
     public List<Map<String,String>> getListByAppId(long appId);
+    public List<Map<String,Object>> findByCondition(@Param("name") String name);
 }
