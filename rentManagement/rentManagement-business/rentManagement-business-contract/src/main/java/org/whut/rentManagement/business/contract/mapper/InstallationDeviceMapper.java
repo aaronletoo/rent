@@ -15,6 +15,6 @@ import java.util.Map;
  */
 public interface InstallationDeviceMapper extends AbstractMapper<InstallationDevice> {
     public List<Map<String,String>> getListByAppId(long appId);
-    public List<Map<String,Object>> listByInstallationId(Map<String,Object> condition);
+    public List<Map<String,Object>> listByInstallationId(Map<String, Object> condition);
     public void deleteByInstallationId(InstallationDevice installationDevice);
 }

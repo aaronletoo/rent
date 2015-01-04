@@ -1,4 +1,4 @@
-package org.whut.rentManagement.business.device.entity;
+package org.whut.rentManagement.business.device.entity.report;
 
 import org.codehaus.jackson.map.annotate.JsonDeserialize;
 import org.whut.platform.fundamental.util.json.CustomDateDeserialize;
@@ -7,35 +7,45 @@ import java.util.Date;
 
 /**
  * Created with IntelliJ IDEA.
- * User: Steven
- * Date: 14-10-10
- * Time: 上午11:17
+ * User: xiaozhujun
+ * Date: 14-12-2
+ * Time: 下午4:19
  * To change this template use File | Settings | File Templates.
  */
-public class Device {
+public class DeviceAccount {
+
     private Long id;
     private Long mainDeviceId;
     private Long batchId;
+    private String batchNumber;
     private Long supplierId;
+    private String supplierName;
     private Long typeId;
+    private String deviceType;
     private Long storehouseId;
+    private Long storehouseName;
     private Long contractId;
-    private Long optionType;
+    private String contractName;
+    private String optionType;
     private String address;
     private String status;
     private String name;
     private String number;
+    private String mainDeviceName;
+    private String mainDeviceNumber;
     private String price;
     @JsonDeserialize(using=CustomDateDeserialize.class)
     private Date produceTime;
+
     @JsonDeserialize(using=CustomDateDeserialize.class)
     private Date createTime;
     private String priceUnit;
 
     private String lng;
     private String lat;
-    private Integer havePrint;
     private Long appId;
+
+    private String deviceAge;
 
     public Long getId() {
         return id;
@@ -43,6 +53,14 @@ public class Device {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDeviceAge() {
+        return deviceAge;
+    }
+
+    public void setDeviceAge(String deviceAge) {
+        this.deviceAge = deviceAge;
     }
 
     public Long getMainDeviceId() {
@@ -61,12 +79,28 @@ public class Device {
         this.batchId = batchId;
     }
 
+    public String getBatchNumber() {
+        return batchNumber;
+    }
+
+    public void setBatchNumber(String batchNumber) {
+        this.batchNumber = batchNumber;
+    }
+
     public Long getSupplierId() {
         return supplierId;
     }
 
     public void setSupplierId(Long supplierId) {
         this.supplierId = supplierId;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 
     public Long getTypeId() {
@@ -77,12 +111,28 @@ public class Device {
         this.typeId = typeId;
     }
 
+    public String getDeviceType() {
+        return deviceType;
+    }
+
+    public void setDeviceType(String deviceType) {
+        this.deviceType = deviceType;
+    }
+
     public Long getStorehouseId() {
         return storehouseId;
     }
 
     public void setStorehouseId(Long storehouseId) {
         this.storehouseId = storehouseId;
+    }
+
+    public Long getStorehouseName() {
+        return storehouseName;
+    }
+
+    public void setStorehouseName(Long storehouseName) {
+        this.storehouseName = storehouseName;
     }
 
     public Long getContractId() {
@@ -93,11 +143,19 @@ public class Device {
         this.contractId = contractId;
     }
 
-    public Long getOptionType() {
+    public String getContractName() {
+        return contractName;
+    }
+
+    public void setContractName(String contractName) {
+        this.contractName = contractName;
+    }
+
+    public String getOptionType() {
         return optionType;
     }
 
-    public void setOptionType(Long optionType) {
+    public void setOptionType(String optionType) {
         this.optionType = optionType;
     }
 
@@ -133,6 +191,22 @@ public class Device {
         this.number = number;
     }
 
+    public String getMainDeviceName() {
+        return mainDeviceName;
+    }
+
+    public void setMainDeviceName(String mainDeviceName) {
+        this.mainDeviceName = mainDeviceName;
+    }
+
+    public String getMainDeviceNumber() {
+        return mainDeviceNumber;
+    }
+
+    public void setMainDeviceNumber(String mainDeviceNumber) {
+        this.mainDeviceNumber = mainDeviceNumber;
+    }
+
     public String getPrice() {
         return price;
     }
@@ -148,6 +222,7 @@ public class Device {
     public void setProduceTime(Date produceTime) {
         this.produceTime = produceTime;
     }
+
 
     public Date getCreateTime() {
         return createTime;
@@ -181,15 +256,6 @@ public class Device {
         this.lat = lat;
     }
 
-
-    public Integer getHavePrint() {
-        return havePrint;
-    }
-
-    public void setHavePrint(Integer havePrint) {
-        this.havePrint = havePrint;
-    }
-
     public Long getAppId() {
         return appId;
     }
@@ -197,4 +263,5 @@ public class Device {
     public void setAppId(Long appId) {
         this.appId = appId;
     }
+
 }

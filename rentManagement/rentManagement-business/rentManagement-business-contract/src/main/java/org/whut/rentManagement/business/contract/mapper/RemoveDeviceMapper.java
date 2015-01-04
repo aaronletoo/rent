@@ -15,6 +15,6 @@ import java.util.Map;
  */
 public interface RemoveDeviceMapper  extends AbstractMapper<RemoveDevice> {
     public List<Map<String,String>> getListByAppId(long appId);
-    public List<Map<String,Object>> listByRemoveId(Map<String,Object> condition);
+    public List<Map<String,Object>> listByRemoveId(Map<String, Object> condition);
     public void deleteByRemoveId(RemoveDevice removeDevice);
 }

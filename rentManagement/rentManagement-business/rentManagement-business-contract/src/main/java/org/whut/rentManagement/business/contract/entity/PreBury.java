@@ -1,5 +1,8 @@
 package org.whut.rentManagement.business.contract.entity;
 
+import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import org.whut.platform.fundamental.util.json.CustomDateDeserialize;
+
 import java.util.Date;
 /**
  * Created with IntelliJ IDEA.
@@ -9,27 +12,29 @@ import java.util.Date;
  * To change this template use File | Settings | File Templates.
  */
 public class PreBury {
-    private long id;
-    private long contractId;
+    private Long id;
+    private Long contractId;
     private String preBuryMan;
+    private Integer preBuryCount;
+    @JsonDeserialize(using=CustomDateDeserialize.class)
     private Date preBuryTime;
     private String preBuryStatus;
     private String image;
-    private long appId;
+    private Long appId;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getContractId() {
+    public Long getContractId() {
         return contractId;
     }
 
-    public void setContractId(long contractId) {
+    public void setContractId(Long contractId) {
         this.contractId = contractId;
     }
 
@@ -39,6 +44,14 @@ public class PreBury {
 
     public void setPreBuryMan(String preBuryMan) {
         this.preBuryMan = preBuryMan;
+    }
+
+    public Integer getPreBuryCount() {
+        return preBuryCount;
+    }
+
+    public void setPreBuryCount(Integer preBuryCount) {
+        this.preBuryCount = preBuryCount;
     }
 
     public Date getPreBuryTime() {
@@ -65,11 +78,11 @@ public class PreBury {
         this.image = image;
     }
 
-    public long getAppId() {
+    public Long getAppId() {
         return appId;
     }
 
-    public void setAppId(long appId) {
+    public void setAppId(Long appId) {
         this.appId = appId;
     }
 }

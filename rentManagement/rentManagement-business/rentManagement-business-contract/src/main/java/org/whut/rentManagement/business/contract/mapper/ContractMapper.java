@@ -15,9 +15,9 @@ import java.util.Map;
  * To change this template use File | Settings | File Templates.
  */
 public interface ContractMapper extends AbstractMapper<Contract> {
-    public List<Contract> getListByAppId(@Param("appId")long appId) ;
-    public Contract getContractById(@Param("id")long id,@Param("appId")long appId);
-    public int deleteById(@Param("id")long id,@Param("appId")long appId);
+    public List<Map<String,Object>> getListByAppId(@Param("appId") long appId) ;
+    public Contract getContractById(@Param("id") long id, @Param("appId") long appId);
+    public int deleteById(@Param("id") long id, @Param("appId") long appId);
 
-    public List<Map<String,String>> getContractList(Map<String,Object> condition);
+    public List<Map<String,String>> getContractList(Map<String, Object> condition);
 }

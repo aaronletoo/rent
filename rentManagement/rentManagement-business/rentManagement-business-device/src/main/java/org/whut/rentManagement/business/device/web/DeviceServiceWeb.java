@@ -4,6 +4,7 @@ package org.whut.rentManagement.business.device.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.whut.platform.business.user.security.UserContext;
+import org.whut.platform.fundamental.logger.PlatformLogger;
 import org.whut.platform.fundamental.util.json.JsonMapper;
 import org.whut.platform.fundamental.util.json.JsonResultUtils;
 import org.whut.rentManagement.business.device.entity.Device;
@@ -28,6 +29,9 @@ import java.util.Map;
 @Component
 @Path("/device")
 public class DeviceServiceWeb {
+
+    private static final PlatformLogger logger = PlatformLogger.getLogger(DeviceServiceWeb.class);
+
     @Autowired
     private DeviceService deviceService;
 
@@ -47,12 +51,13 @@ public class DeviceServiceWeb {
         Long appId= UserContext.currentUserAppId();
         Long id;
         try{
-            device.setCreateTime(new Date());
             id=deviceService.getIdByNumber(device.getNumber(),appId);
         }catch(Exception e){
             id=null;
         }
         if(id==null){
+            device.setCreateTime(new Date());
+            device.setHavePrint(0);
             device.setAppId(appId);
             deviceService.add(device);
             return JsonResultUtils.getCodeAndMesByString(JsonResultUtils.Code.SUCCESS.getCode(), "添加成功!");
@@ -69,10 +74,9 @@ public class DeviceServiceWeb {
             return JsonResultUtils.getCodeAndMesByString(JsonResultUtils.Code.ERROR.getCode(),"参数不能是空!");
         }
         Device device = JsonMapper.buildNonDefaultMapper().fromJson(jsonString,Device.class);
-        if(device==null){
+        if(device==null||device.getId()==null){
             return JsonResultUtils.getCodeAndMesByString(JsonResultUtils.Code.ERROR.getCode(),"参数不能是空!");
         }
-        long id;
         long appId= UserContext.currentUserAppId();
         device.setCreateTime(null);
         device.setAppId(appId);
@@ -119,7 +123,7 @@ public class DeviceServiceWeb {
     @GET
     public String getMainDeviceList(){
         long appId= UserContext.currentUserAppId();
-        List<Map<String,String>> list=deviceService.getMainDeviceList(appId);
+        List<Map<String,String>> list=deviceService.getMainDeviceListByAppId(appId);
         return JsonResultUtils.getObjectResultByStringAsDefault(list, JsonResultUtils.Code.SUCCESS);
     }
 
@@ -127,12 +131,47 @@ public class DeviceServiceWeb {
     @Path("/findByCondition")
     @POST
     public String listByCondition(@FormParam("jsonString") String jsonString){
+        logger.error("jsonString="+jsonString);
         if(jsonString==null||jsonString.trim().equals("")){
             return JsonResultUtils.getCodeAndMesByString(JsonResultUtils.Code.ERROR.getCode(), "对不起，参数不能为空!");
         }
+
         Map<String,Object> condition = JsonMapper.buildNonDefaultMapper().fromJson(jsonString, HashMap.class);
         condition.put("appId",UserContext.currentUserAppId());
-        List<Map<String,String>> list = deviceService.findByCondition(condition);
+        List<Map<String,Object>> list = deviceService.findByCondition(condition);
         return JsonResultUtils.getObjectResultByStringAsDefault(list, JsonResultUtils.Code.SUCCESS);
     }
+
+    @Produces(MediaType.APPLICATION_JSON+";charset=UTF-8")
+    @Path("/mainDeviceInfo")
+    @POST
+    public String mainDeviceInfo(@FormParam("mainDeviceId") String mainDeviceId){
+        if(mainDeviceId==null||mainDeviceId.trim().equals("")){
+            return JsonResultUtils.getCodeAndMesByString(JsonResultUtils.Code.ERROR.getCode(), "对不起，参数不能为空!");
+        }
+        Map<String,Object> condition = new HashMap<String, Object>();
+        condition.put("mainDeviceId",Long.parseLong(mainDeviceId));
+        condition.put("appId",UserContext.currentUserAppId());
+        Map<String,Object> mainDeviceInfo = deviceService.getMainDeviceInfo(condition);
+        List<Map<String,Object>> deviceList = deviceService.listByMainDeviceId(condition);
+        mainDeviceInfo.put("deviceList",deviceList);
+        return  JsonResultUtils.getObjectResultByStringAsDefault(mainDeviceInfo,JsonResultUtils.Code.SUCCESS);
+    }
+
+    @Produces(MediaType.APPLICATION_JSON+";charset=UTF-8")
+    @Path("/setPrint")
+    @POST
+    public String setPrint(@FormParam("deviceId") String deviceId,@FormParam("havePrint") String havePrint){
+        if(havePrint==null||havePrint.trim().equals("")||deviceId==null||deviceId.trim().equals("")){
+            return JsonResultUtils.getCodeAndMesByString(JsonResultUtils.Code.ERROR.getCode(), "对不起，参数不能为空!");
+        }
+        Device device = new Device();
+        device.setId(Long.parseLong(deviceId));
+        device.setHavePrint(Integer.parseInt(havePrint));
+        device.setAppId(UserContext.currentUserAppId());
+        deviceService.update(device);
+        return  JsonResultUtils.getObjectResultByStringAsDefault(device.getId(),JsonResultUtils.Code.SUCCESS);
+    }
+
+
 }
